@@ -12,12 +12,15 @@ import Pop from './popUp'
 
 export default function Level1(props) {
 
-    console.log(document.querySelector('.hitSquare1'));
-
     const [popUpState, setPopUpState] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
 
+    useEffect(() => {
+
+    }, [])
+
     const clicky = (e) => {
+        console.log(e.target.offsetLeft)
         setCoordinates([e.pageX, e.pageY]);
         setPopUpState(true);
     }

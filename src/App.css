@@ -112,5 +112,28 @@ cursor:pointer;
   right: 0px;
   left: 23%;
   bottom: 0px;
+}
 
+.hitSquare2 {
+  position: absolute;
+  background: blue;
+  opacity: 0.4;
+  width: 2.3rem;
+  height: 3.7rem;
+  top: 46%;
+  right: 0px;
+  left: 51.3%;
+  bottom: 0px;
+}
+
+.hitSquare3 {
+  position: absolute;
+  background: blue;
+  opacity: 0.4;
+  width: 3rem;
+  height: 4.5rem;
+  top: 45.3%;
+  right: 0px;
+  left: 61%;
+  bottom: 0px;
 }
