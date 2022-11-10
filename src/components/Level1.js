@@ -15,18 +15,11 @@ export default function Level1(props) {
 
     const [popUpState, setPopUpState] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
-    const [positions, setPositions] = useState([]);
     const [count, setCount] = useState(0);
-
 
     const odlawRef = useRef();
     const waldoRef = useRef();
     const wizardRef = useRef();
-
-
-
-
-
 
     function sendData() {
         if(count === 0) {
