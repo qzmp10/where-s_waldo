@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import waldo1 from '../waldo1.jpg'
 import { Button, Character } from './styled-comp'
@@ -12,12 +12,36 @@ import Pop from './popUp'
 
 export default function Level1(props) {
 
+
     const [popUpState, setPopUpState] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
+    const [positions, setPositions] = useState([]);
+    const [count, setCount] = useState(0);
 
-    useEffect(() => {
 
-    }, [])
+    const odlawRef = useRef();
+    const waldoRef = useRef();
+    const wizardRef = useRef();
+
+
+
+
+
+
+    function sendData() {
+        if(count === 0) {
+            const odlawPos = odlawRef.current.offsetLeft
+            const waldoPos = waldoRef.current.offsetLeft
+            const wizardPos = wizardRef.current.offsetLeft
+            setPosOdlaw(odlawPos);
+            setPosWaldo(waldoPos);
+            setPosWizard(wizardPos);
+            setCount(count + 1);
+            console.log('data sent to firebase')
+        } else {
+            return;
+        }
+    }
 
     const clicky = (e) => {
         console.log(e.target.offsetLeft)
@@ -27,6 +51,30 @@ export default function Level1(props) {
 
     const callback = (popState) => {
         setPopUpState(popState);
+    }
+
+    async function setPosOdlaw(position) {
+        const ref = doc(db, 'waldoData', 'level1');
+
+        await updateDoc(ref, {
+            odlaw: position,
+        })
+    }
+
+    async function setPosWaldo(position) {
+        const ref = doc(db, 'waldoData', 'level1');
+
+        await updateDoc(ref, {
+            waldo: position,
+        })
+    }
+
+    async function setPosWizard(position) {
+        const ref = doc(db, 'waldoData', 'level1');
+
+        await updateDoc(ref, {
+            wizard: position,
+        })
     }
 
     return (
@@ -46,16 +94,18 @@ export default function Level1(props) {
                     Next Level >
                     </Button>
                 </div>
-                <div className='waldoMap' onClick={clicky}>
+                <div className='waldoMap' onClick={clicky} onMouseOver={() => {
+                    sendData();
+                }}>
                     <img src={waldo1} alt='waldo-wallpaper' />
-                    <div className='hitSquare1'></div>
-                    <div className='hitSquare2'></div>
-                    <div className='hitSquare3'></div>
+                    <div ref={odlawRef} className='hitSquare1'></div>
+                    <div ref={waldoRef} className='hitSquare2'></div>
+                    <div ref={wizardRef} className='hitSquare3'></div>
                 </div>
             </div>
             {
                 popUpState === true ? (
-                    <Pop characters={props.characters} x={coordinates[0]} y={coordinates[1]} callback={callback}/>
+                    <Pop characters={props.characters} x={coordinates[0]} y={coordinates[1]} callback={callback} />
                 ) : (
                     <div></div>
                 )
