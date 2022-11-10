@@ -13,26 +13,24 @@ const [currentLevel, setCurrentLevel] = useState(0);
 const [currentCharacters, setCurrentCharacters] = useState(['Default', 'Default', 'Default']);
 
 
-const popUpBox = (x, y) => {
-  let body = document.querySelector('body');
-  let popContainer = document.createElement('div');
-  popContainer.classList.add('popUp')
+// const popUpBox = (x, y) => {
+//   let body = document.querySelector('body');
+//   let popContainer = document.createElement('div');
+//   popContainer.classList.add('popUp')
 
-  for(let i =0; i < currentCharacters.length; i++) {
-    let div = document.createElement('div');
-    let textChild = document.createElement('span');
-    div.classList.add('textChild');
-    popContainer.appendChild(div);
-    div.appendChild(textChild);
-    div.style.height = `${(100 / currentCharacters.length)}%`;
-    textChild.textContent = `${currentCharacters[i].toUpperCase()}`;
-  } 
+//   for(let i =0; i < currentCharacters.length; i++) {
+//     let div = document.createElement('div');
+//     div.classList.add('textChild');
+//     popContainer.appendChild(div);
+//     div.style.height = `${(100 / currentCharacters.length)}%`;
+//     div.textContent = `${currentCharacters[i].toUpperCase()}`;
+//   } 
 
-  body.appendChild(popContainer)
-  popContainer.style.top = `${y}px`;
-  popContainer.style.left = `${x}px`;
+//   body.appendChild(popContainer)
+//   popContainer.style.top = `${y}px`;
+//   popContainer.style.left = `${x}px`;
 
-}
+// }
 
 const nextLevel = () => {
   setCurrentLevel(currentLevel + 1);
@@ -43,7 +41,7 @@ const nextLevel = () => {
       <Nav />
       <Routes>
         <Route path='/' element={<Home nextLevel={nextLevel}/>}></Route>
-        <Route path='/level1' element={<Level1 currentLevel={currentLevel} popUp={popUpBox}/>}></Route>
+        <Route path='/level1' element={<Level1 currentLevel={currentLevel}  characters={currentCharacters}/>}></Route>
       </Routes>
     </Router>
   );

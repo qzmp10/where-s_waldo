@@ -8,6 +8,7 @@ border: none;
 border-radius: .6rem;
 color: white;
 font-size: 1.5rem;
+cursor: pointer;
 `
 
 export const Character = styled.img`
