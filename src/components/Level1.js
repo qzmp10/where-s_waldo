@@ -33,6 +33,10 @@ export default function Level1(props) {
 
 
     useEffect(() => {
+        props.setLevel(false, true, false, false);
+        props.getCharacters();
+
+        getAllPositions();
 
         let timer = window.setInterval(() => {
             if (count.current === 3) {
@@ -43,11 +47,6 @@ export default function Level1(props) {
             userTime.current = userTime.current + 1;
             console.log(userTime.current);
         }, 1000);
-
-        props.setLevel(false, true, false, false);
-
-        getAllPositions();
-
     }, [])
 
     useEffect(() => {
@@ -166,7 +165,7 @@ export default function Level1(props) {
                     </div>
                 </div>
                 {levelFinished === true ? (
-                    <TimePop userTime={userTime.current} callback={secondCallback}/>
+                    <TimePop userTime={userTime.current} callback={secondCallback} />
 
                 ) : (
                     <div></div>

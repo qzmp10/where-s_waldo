@@ -23,9 +23,11 @@ export default function Home(props) {
                 <span>
                     View the Where's Waldo Hall of Fame
                 </span>
-                <Button>
+                <Link to='/leaderboard'>
+                    <Button>
                     Leaderboard >
-                </Button>
+                    </Button>
+                </Link>
             </div>
         </div>
     )

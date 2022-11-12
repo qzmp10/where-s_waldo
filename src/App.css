@@ -39,7 +39,7 @@ button {
   justify-content: center;
   flex-direction: column;
   height: 70%;
-  background-image: linear-gradient(white, rgb(255, 57, 57));
+  background-image: linear-gradient(200deg, white, rgb(255, 57, 57));
   gap: 4rem;
 }
 
@@ -52,6 +52,8 @@ button {
   display: flex;
   gap: 1.5rem;
   align-items: center;
+  border: solid 2px white;
+  width: 629.453px;
 }
 
 .leaderboard {
@@ -63,8 +65,54 @@ button {
   display: flex;
   gap: 1.5rem;
   align-items: center;
+  border: solid 2px white;
   
 }
+
+span {
+  width: 413.453px;
+}
+
+.levelLeaderboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.leaderboardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.leaderboardUser {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  border-top: solid 1px;
+  padding: 1rem;
+  background-color: rgba(255, 57, 57, 0.205);
+}
+
+.leaderboardName {
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+.leaderboardTime {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.timeDiv {
+  display: flex;
+  flex-direction: column;
+}
+
 
 .waldoImg {
   height: 80%;

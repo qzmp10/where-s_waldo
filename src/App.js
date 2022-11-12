@@ -11,6 +11,7 @@ import './App.css';
 import Home from './components/home';
 import Nav from './components/nav';
 import Level1 from './components/Level1';
+import Leaderboard from './components/leaderboard';
 
 
 function App() {
@@ -26,16 +27,10 @@ function App() {
     whichLevel();
   }, [])
 
-  useEffect(() => {
-    if (currentLevel == 1) {
-      getCharacters();
-    }
-  }, [currentLevel])
-
   async function getCharacters() {
     const charRef = await doc(db, 'waldoData', `level${currentLevel}`);
     const charSnap = await getDoc(charRef);
-    console.log(charSnap.data())
+    console.log(charSnap.data()['characters']);
     const array = charSnap.data()['characters'];
     setCurrentCharacters(array);
   }
@@ -73,7 +68,8 @@ function App() {
       <Nav />
       <Routes>
         <Route path='/' element={<Home setLevel={setLevel} />}></Route>
-        <Route path='/level1' element={<Level1 currentLevel={currentLevel} characters={currentCharacters} setLevel={setLevel} />}></Route>
+        <Route path='/level1' element={<Level1 currentLevel={currentLevel} characters={currentCharacters} setLevel={setLevel} getCharacters={getCharacters}/>}></Route>
+        <Route path='/leaderboard' element={<Leaderboard/>}></Route>
       </Routes>
     </Router>
   );
