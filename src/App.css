@@ -58,7 +58,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width:62rem;
+  width: 62rem;
 }
 
 .levelAndCharacters {
@@ -68,7 +68,7 @@ button {
   gap: 2rem;
 }
 
-.headerCharacters{
+.headerCharacters {
   display: flex;
   gap: 1rem;
 }
@@ -78,18 +78,18 @@ button {
 }
 
 .popUp {
-background-color: rgb(255, 57, 57);
-width: 12rem;
-height: 12rem;
-position: absolute;
-display: flex;
-flex-direction: column;
-border-radius: .6rem;
-overflow: hidden;
-cursor:pointer;
+  background-color: rgb(255, 57, 57);
+  width: 12rem;
+  height: 12rem;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border-radius: .6rem;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-.popUp > div {
+.popUp>div {
   display: flex;
   align-items: center;
   padding-left: 1rem;
@@ -137,4 +137,51 @@ cursor:pointer;
   right: 0px;
   left: 61%;
   bottom: 0px;
+}
+
+.timePopUp {
+  width: 50rem;
+  height: 15rem;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.timePopContainer {
+  position: relative;
+}
+
+form {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+}
+
+.submit {
+  width: 10rem;
+  height: 2rem;
+  background-color: rgb(255, 57, 57);
+  border: none;
+  border-radius: .6rem;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+h3 {
+  margin-top: -1rem;
 }

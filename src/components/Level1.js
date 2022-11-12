@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { db } from '../firebase.config'
 import Pop from './popUp'
-import { click } from '@testing-library/user-event/dist/click';
+import TimePop from './finishLevel'
 
 export default function Level1(props) {
 
@@ -18,7 +18,7 @@ export default function Level1(props) {
     const [coordinates, setCoordinates] = useState([]);
     const [positionArray, setPositionArray] = useState([]);
     const [clickPos, setClickPos] = useState('');
-    const [count, setCount] = useState(0);
+    const [levelFinished, setLevelFinished] = useState(false);
 
     const odlawRef = useRef();
     const waldoRef = useRef();
@@ -28,14 +28,34 @@ export default function Level1(props) {
     const waldoImg = useRef();
     const wizardImg = useRef();
 
+    const userTime = useRef(0);
+    const count = useRef(0);
+
 
     useEffect(() => {
+
+        let timer = window.setInterval(() => {
+            if (count.current === 3) {
+                window.clearInterval(timer);
+                console.log('cleared', userTime.current, 'seconds');
+                setLevelFinished(true);
+            }
+            userTime.current = userTime.current + 1;
+            console.log(userTime.current);
+        }, 1000);
+
         props.setLevel(false, true, false, false);
+
         getAllPositions();
+
     }, [])
 
+    useEffect(() => {
 
-    function sendData() {
+    }, [levelFinished])
+
+
+    function sendDataToFirebase() {
         if (count === 0) {
             const odlawPos = odlawRef.current.offsetLeft
             const waldoPos = waldoRef.current.offsetLeft
@@ -43,7 +63,6 @@ export default function Level1(props) {
             setPosOdlaw(odlawPos);
             setPosWaldo(waldoPos);
             setPosWizard(wizardPos);
-            setCount(count + 1);
             console.log('data sent to firebase')
         } else {
             return;
@@ -69,15 +88,15 @@ export default function Level1(props) {
         setPopUpState(popState);
         if (selection === 'odlaw') {
             odlawImg.current.style.opacity = '0.3';
-            setCount(count + 1);
+            count.current = count.current + 1;
         }
         if (selection === 'waldo') {
             waldoImg.current.style.opacity = '0.3';
-            setCount(count + 1);
+            count.current = count.current + 1;
         }
         if (selection === 'wizard') {
             wizardImg.current.style.opacity = '0.3';
-            setCount(count + 1);
+            count.current = count.current + 1;
         } else {
             return;
         }
@@ -114,31 +133,40 @@ export default function Level1(props) {
         setPositionArray(array);
     }
 
+
     return (
         <>
-            <div className='levelContainer'>
-                <div className='levelHeader'>
-                    <div className='levelAndCharacters'>
-                        <div className='currentLevel'>Waldo's Beach</div>
-                        <div className='headerCharacters'>
-                            <Character ref={odlawImg} className='odlaw' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/4/46311/1333591-200px_character.odlaw.jpg' />
-                            <Character ref={waldoImg} className='waldo' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/0/5973/545186-waldo2.jpg' />
-                            <Character ref={wizardImg} className='wizard' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/4/46311/1341868-wizard.gif' />
+            <div className='timePopContainer'>
+                <div className='levelContainer'>
+                    <div className='levelHeader'>
+                        <div className='levelAndCharacters'>
+                            <div className='currentLevel'>Waldo's Beach</div>
+                            <div className='headerCharacters'>
+                                <Character ref={odlawImg} className='odlaw' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/4/46311/1333591-200px_character.odlaw.jpg' />
+                                <Character ref={waldoImg} className='waldo' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/0/5973/545186-waldo2.jpg' />
+                                <Character ref={wizardImg} className='wizard' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/4/46311/1341868-wizard.gif' />
+                            </div>
                         </div>
-                    </div>
 
-                    <Button>
+                        <Button>
                     Next Level >
-                    </Button>
+                        </Button>
+                    </div>
+                    <div className='waldoMap' onClick={clicky} onMouseOver={() => {
+                        sendDataToFirebase();
+                    }}>
+                        <img src={waldo1} alt='waldo-wallpaper' />
+                        <div ref={odlawRef} className='hitSquare1'></div>
+                        <div ref={waldoRef} className='hitSquare2'></div>
+                        <div ref={wizardRef} className='hitSquare3'></div>
+                    </div>
                 </div>
-                <div className='waldoMap' onClick={clicky} onMouseOver={() => {
-                    sendData();
-                }}>
-                    <img src={waldo1} alt='waldo-wallpaper' />
-                    <div ref={odlawRef} className='hitSquare1'></div>
-                    <div ref={waldoRef} className='hitSquare2'></div>
-                    <div ref={wizardRef} className='hitSquare3'></div>
-                </div>
+                {levelFinished === true ? (
+                    <TimePop userTime={userTime.current} />
+
+                ) : (
+                    <div></div>
+                )}
             </div>
             {
                 popUpState === true ? (
@@ -147,6 +175,7 @@ export default function Level1(props) {
                     <div></div>
                 )
             }
+
         </>
 
     )
