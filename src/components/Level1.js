@@ -102,6 +102,10 @@ export default function Level1(props) {
         }
     }
 
+    const secondCallback = () => {
+        setLevelFinished(false);
+    }
+
     async function setPosOdlaw(position) {
         const ref = doc(db, 'waldoData', 'level1');
 
@@ -162,7 +166,7 @@ export default function Level1(props) {
                     </div>
                 </div>
                 {levelFinished === true ? (
-                    <TimePop userTime={userTime.current} />
+                    <TimePop userTime={userTime.current} callback={secondCallback}/>
 
                 ) : (
                     <div></div>

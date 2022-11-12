@@ -10,12 +10,23 @@ export default function Home(props) {
 
     return (
         <div className='homeContainer'>
-            <Link to='/level1'>
-                <Button>
+            <div className='play'>
+                <span> Play Where's Waldo Online</span>
+                <Link to='/level1'>
+                    <Button>
                     Play >
+                    </Button>
+                </Link>
+            </div>
+
+            <div className='leaderboard'>
+                <span>
+                    View the Where's Waldo Hall of Fame
+                </span>
+                <Button>
+                    Leaderboard >
                 </Button>
-            </Link>
-            <div className='leaderboard'></div>
+            </div>
         </div>
     )
 }
