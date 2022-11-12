@@ -38,6 +38,7 @@ button {
   align-items: center;
   justify-content: center;
   height: 70%;
+  background-image: linear-gradient(white, rgb(255, 57, 57));
 }
 
 .waldoImg {

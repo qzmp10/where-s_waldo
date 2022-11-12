@@ -9,20 +9,34 @@ import {
 } from "firebase/firestore";
 import { db } from '../firebase.config'
 import Pop from './popUp'
+import { click } from '@testing-library/user-event/dist/click';
 
 export default function Level1(props) {
 
 
     const [popUpState, setPopUpState] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
+    const [positionArray, setPositionArray] = useState([]);
+    const [clickPos, setClickPos] = useState('');
     const [count, setCount] = useState(0);
 
     const odlawRef = useRef();
     const waldoRef = useRef();
     const wizardRef = useRef();
 
+    const odlawImg = useRef();
+    const waldoImg = useRef();
+    const wizardImg = useRef();
+
+
+    useEffect(() => {
+        props.setLevel(false, true, false, false);
+        getAllPositions();
+    }, [])
+
+
     function sendData() {
-        if(count === 0) {
+        if (count === 0) {
             const odlawPos = odlawRef.current.offsetLeft
             const waldoPos = waldoRef.current.offsetLeft
             const wizardPos = wizardRef.current.offsetLeft
@@ -37,13 +51,36 @@ export default function Level1(props) {
     }
 
     const clicky = (e) => {
-        console.log(e.target.offsetLeft)
+        if (positionArray.includes(e.target.offsetLeft) && e.target.offsetLeft === positionArray[0]) {
+            setClickPos(e.target.offsetLeft);
+        } else if (positionArray.includes(e.target.offsetLeft) && e.target.offsetLeft === positionArray[1]) {
+            setClickPos(e.target.offsetLeft);
+        } else if (positionArray.includes(e.target.offsetLeft) && e.target.offsetLeft === positionArray[2]) {
+            setClickPos(e.target.offsetLeft);
+        } else {
+            setClickPos('');
+        }
         setCoordinates([e.pageX, e.pageY]);
         setPopUpState(true);
+
     }
 
-    const callback = (popState) => {
+    const callback = (popState, selection) => {
         setPopUpState(popState);
+        if (selection === 'odlaw') {
+            odlawImg.current.style.opacity = '0.3';
+            setCount(count + 1);
+        }
+        if (selection === 'waldo') {
+            waldoImg.current.style.opacity = '0.3';
+            setCount(count + 1);
+        }
+        if (selection === 'wizard') {
+            wizardImg.current.style.opacity = '0.3';
+            setCount(count + 1);
+        } else {
+            return;
+        }
     }
 
     async function setPosOdlaw(position) {
@@ -70,6 +107,13 @@ export default function Level1(props) {
         })
     }
 
+    async function getAllPositions() {
+        const ref = doc(db, 'waldoData', 'level1');
+        const refSnap = await getDoc(ref);
+        const array = [refSnap.data()['odlaw'], refSnap.data()['waldo'], refSnap.data()['wizard']]
+        setPositionArray(array);
+    }
+
     return (
         <>
             <div className='levelContainer'>
@@ -77,9 +121,9 @@ export default function Level1(props) {
                     <div className='levelAndCharacters'>
                         <div className='currentLevel'>Waldo's Beach</div>
                         <div className='headerCharacters'>
-                            <Character className='odlaw' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/4/46311/1333591-200px_character.odlaw.jpg' />
-                            <Character className='waldo' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/0/5973/545186-waldo2.jpg' />
-                            <Character className='wizard' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/4/46311/1341868-wizard.gif' />
+                            <Character ref={odlawImg} className='odlaw' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/4/46311/1333591-200px_character.odlaw.jpg' />
+                            <Character ref={waldoImg} className='waldo' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/0/5973/545186-waldo2.jpg' />
+                            <Character ref={wizardImg} className='wizard' alt='odlaw' src='https://www.giantbomb.com/a/uploads/scale_small/4/46311/1341868-wizard.gif' />
                         </div>
                     </div>
 
@@ -98,7 +142,7 @@ export default function Level1(props) {
             </div>
             {
                 popUpState === true ? (
-                    <Pop characters={props.characters} x={coordinates[0]} y={coordinates[1]} callback={callback} />
+                    <Pop characters={props.characters} x={coordinates[0]} y={coordinates[1]} callback={callback} clickPos={clickPos} positionArray={positionArray} />
                 ) : (
                     <div></div>
                 )

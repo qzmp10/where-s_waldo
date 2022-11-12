@@ -3,16 +3,19 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import { Button } from './styled-comp'
 
 export default function Home(props) {
-    const click = () => {
-        props.nextLevel();
-    }
+
+    useEffect(() => {
+        props.setLevel(true, false, false, false);
+    }, [])
+
     return (
         <div className='homeContainer'>
             <Link to='/level1'>
-                <Button onClick={click}>
-                    Play
+                <Button>
+                    Play >
                 </Button>
             </Link>
+            <div className='leaderboard'></div>
         </div>
     )
 }

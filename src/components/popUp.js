@@ -15,9 +15,31 @@ export default function Pop(props) {
                      onMouseOut={(e) => {
                         e.target.style.backgroundColor = ''
                      }}
-                     onClick={() => {
-                        props.callback(false);
-                     }}>{char}</div>
+                     onClick={(e) => {
+                        if(props.positionArray.includes(props.clickPos) && props.clickPos === props.positionArray[0]) {
+                            if(e.target.textContent !== '> Odlaw') {
+                                props.callback(false, null);
+                            } else {
+                                props.callback(false, 'odlaw');
+                            }
+                            
+                        } else if (props.positionArray.includes(props.clickPos) && props.clickPos === props.positionArray[1]) {
+                            if(e.target.textContent !== '> Waldo') {
+                                props.callback(false, null);
+                            } else {
+                                props.callback(false, 'waldo');
+                            }
+                        } else if (props.positionArray.includes(props.clickPos) && props.clickPos === props.positionArray[2]) {
+                            if(e.target.textContent !== '> Wizard') {
+                                props.callback(false, null);
+                            } else {
+                                props.callback(false, 'wizard');
+                            }
+                        } else {
+                            props.callback(false, null);
+                        }
+
+                     }}>> {char}</div>
                 )
             })}
         </div>

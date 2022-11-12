@@ -18,16 +18,16 @@ function App() {
   const [currentLevel, setCurrentLevel] = useState(0);
   const [currentCharacters, setCurrentCharacters] = useState(['Default', 'Default', 'Default']);
 
-  const nextLevel = () => {
-    changeLevel();
-  }
+  // const nextLevel = () => {
+  //   changeLevel();
+  // }
 
   useEffect(() => {
     whichLevel();
   }, [])
 
   useEffect(() => {
-    if(currentLevel === '1') {
+    if (currentLevel == 1) {
       getCharacters();
     }
   }, [currentLevel])
@@ -40,6 +40,18 @@ function App() {
     setCurrentCharacters(array);
   }
 
+  async function setLevel(state0, state1, state2, state3) {
+    const levelRef = await doc(db, 'waldoData', 'currentLevel');
+    const levelSnap = await getDoc(levelRef);
+    await updateDoc(levelRef, {
+      '0': state0,
+      '1': state1,
+      '2': state2,
+      '3': state3
+    })
+    console.log(levelSnap.data());
+  }
+
   async function whichLevel() {
 
     const levelRef = await doc(db, 'waldoData', 'currentLevel');
@@ -49,38 +61,19 @@ function App() {
       console.log(levelSnap.data());
       for (const level in levelSnap.data()) {
         if (levelSnap.data()[level] === true) {
+          console.log(levelSnap.data());
           setCurrentLevel(level);
         }
       }
     }
   }
 
-  async function changeLevel() {
-
-
-    const levelRef = await doc(db, 'waldoData', 'currentLevel');
-
-
-    if (currentLevel == 0) {
-      await updateDoc(levelRef, {
-        '0': false,
-        '1': true,
-      })
-    } else if (currentLevel == 1) {
-      await updateDoc(levelRef, {
-        '1': false,
-        '2': true,
-      })
-    }
-
-  }
-
   return (
     <Router>
       <Nav />
       <Routes>
-        <Route path='/' element={<Home nextLevel={nextLevel} />}></Route>
-        <Route path='/level1' element={<Level1 currentLevel={currentLevel} characters={currentCharacters} />}></Route>
+        <Route path='/' element={<Home setLevel={setLevel} />}></Route>
+        <Route path='/level1' element={<Level1 currentLevel={currentLevel} characters={currentCharacters} setLevel={setLevel} />}></Route>
       </Routes>
     </Router>
   );
