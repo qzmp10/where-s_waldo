@@ -25,7 +25,11 @@ export default function TimePop(props) {
     const submitName = (e) => {
         e.preventDefault();
         sendUserInfoToFirebase(userName, props.userTime);
-
+        props.callback();
+        const header = document.querySelector('.header');
+        const levelContainer = document.querySelector('.levelContainer');
+        header.style.filter = 'none';
+        levelContainer.style.filter = 'none';
     }
 
     async function sendUserInfoToFirebase(name, time) {

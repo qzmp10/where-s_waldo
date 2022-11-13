@@ -20,12 +20,30 @@ export default function Levelleaderboard(props) {
         getLevelLeaderboard();
     }, [props.level])
 
+    // async function getLevelLeaderboard() {
+    //     const usersInfo = doc(db, 'waldoData', `user-leaderboard-level${props.level}`);
+    //     const userInfoSnap = await getDoc(usersInfo);
+    //     const userArray = userInfoSnap.data()['users'];
+    //     setLeaderboardArray(userArray);
+    // }
+
     async function getLevelLeaderboard() {
-        const usersInfo = doc(db, 'waldoData', `user-leaderboard-level${props.level}`);
-        const userInfoSnap = await getDoc(usersInfo);
-        const userArray = userInfoSnap.data()['users'];
-        setLeaderboardArray(userArray);
+        const usr = doc(db, 'waldoData', `user-leaderboard-level${props.level}`);
+        const usrSnap = await getDoc(usr);
+
+        let queryInfo = usrSnap.data()['users'];
+        
+        queryInfo.sort((a, b) => {
+            if(a.time > b.time) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+
+        setLeaderboardArray(queryInfo);
     }
+
 
     return (
         <div className='levelLeaderboard'>
