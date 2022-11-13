@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef, useInsertionEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import {
-  collection, getDocs, doc, setDoc, Timestamp, updateDoc, serverTimestamp,
-  arrayUnion, arrayRemove, increment, deleteDoc, deleteField,
-  getDoc, getDocFromCache, where, query, onSnapshot, orderBy, limit, addDoc
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { doc, updateDoc, getDoc,
 } from "firebase/firestore";
 import { db } from './firebase.config'
 import './App.css';
@@ -13,6 +10,7 @@ import Nav from './components/nav';
 import Level1 from './components/Level1';
 import Level2 from './components/Level2';
 import Leaderboard from './components/leaderboard';
+import Level3 from './components/Level3';
 
 
 function App() {
@@ -21,20 +19,19 @@ function App() {
   const [currentCharacters, setCurrentCharacters] = useState(['Default', 'Default', 'Default']);
 
   async function getCharacters() {
-    
+
     try {
       if (currentLevel != 0) {
         const charRef = await doc(db, 'waldoData', `level${currentLevel}`);
         const charSnap = await getDoc(charRef);
-        console.log(currentLevel);
         console.log(charSnap.data());
         console.log(charSnap.data()['characters']);
         const array = charSnap.data()['characters'];
         setCurrentCharacters(array);
-        console.log('getCharacters() fired')
+        console.log('getCharacters() fired', 'currentLevel', currentLevel)
       } else {
         console.log('getCHaracters() not executed')
-      } 
+      }
 
     } catch (e) {
       console.log(e);
@@ -75,9 +72,17 @@ function App() {
       <Nav />
       <Routes>
         <Route path='/' element={<Home setLevel={setLevel} whichLevel={whichLevel} />}></Route>
+
         <Route path='/level1' element={<Level1 currentLevel={currentLevel} characters={currentCharacters}
           setLevel={setLevel} getCharacters={getCharacters} whichLevel={whichLevel} />}></Route>
-        <Route path='/level2' element={<Level2 currentLevel={currentLevel} characters={currentCharacters} setLevel={setLevel} getCharacters={getCharacters} />}></Route>
+
+        <Route path='/level2' element={<Level2 currentLevel={currentLevel} characters={currentCharacters}
+          setLevel={setLevel} getCharacters={getCharacters} />}></Route>
+
+
+        <Route path='/level3' element={<Level3 currentLevel={currentLevel} characters={currentCharacters}
+          setLevel={setLevel} getCharacters={getCharacters} />}></Route>
+
         <Route path='/leaderboard' element={<Leaderboard />}></Route>
       </Routes>
     </Router>

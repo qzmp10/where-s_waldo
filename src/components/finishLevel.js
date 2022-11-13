@@ -7,6 +7,7 @@ import {
 import { db } from '../firebase.config'
 export default function TimePop(props) {
 
+
     const [userName, setUserName] = useState('')
 
     useEffect(() => {
@@ -28,8 +29,7 @@ export default function TimePop(props) {
     }
 
     async function sendUserInfoToFirebase(name, time) {
-
-        await updateDoc(doc(db, 'waldoData', 'user-leaderboard-level1'), {
+        await updateDoc(doc(db, 'waldoData', `user-leaderboard-level${props.currentLevel}`), {
             users: arrayUnion({name: name, time: time})
           })
           console.log('sent');

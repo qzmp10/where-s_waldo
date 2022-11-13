@@ -13,13 +13,14 @@ export default function Pop(props) {
                             e.target.style.backgroundColor = ''
                         }}
                         onClick={(e) => {
-                            if (props.positionArray.includes(props.clickPos) && props.clickPos === props.positionArray[0]) {
+
+                            // here i put one more condition (!== 148)  so that my levels with 1 waldo to find dont match this condition
+                            if (props.positionArray.includes(props.clickPos) && props.clickPos === props.positionArray[0] && props.positionArray[0] !== 148) {
                                 if (e.target.textContent !== '> Odlaw') {
                                     props.callback(false, null);
                                 } else {
                                     props.callback(false, 'odlaw');
                                 }
-
                             } else if (props.positionArray.includes(props.clickPos) && props.clickPos === props.positionArray[1]) {
                                 if (e.target.textContent !== '> Waldo') {
                                     props.callback(false, null);
@@ -32,6 +33,8 @@ export default function Pop(props) {
                                 } else {
                                     props.callback(false, 'wizard');
                                 }
+                            } else if (props.positionArray.includes(props.clickPos) && props.clickPos === props.positionArray[0]) {
+                                props.callbackLvl2(false, 'waldo');
                             } else {
                                 props.callback(false, null);
                             }

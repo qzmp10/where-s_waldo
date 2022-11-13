@@ -23,7 +23,7 @@ export default function Leaderboard(props) {
     const buttonLevel2 = useRef();
     const buttonLevel3 = useRef();
 
-    const activeLevel = () => {
+    const activeLevel = (e) => {
         if (displayedLevel == 1) {
             buttonLevel1.current.style.backgroundColor = 'rgb(255, 57, 57)'
             buttonLevel1.current.style.color = 'white';
@@ -55,6 +55,7 @@ export default function Leaderboard(props) {
 
     const switchLevel = (e) => {
         changeLevel(Number(e.target.dataset.id));
+        console.log(displayedLevel);
     }
 
     return (

@@ -35,7 +35,7 @@ export default function Levelleaderboard(props) {
                     <div className='leaderboardUser' key={Math.random() * 10000}>
                         <span className="leaderboardName">{user.name}</span>
                         <div className="timeDiv">
-                            <span>Finished level 1 in... </span>
+                            <span>Finished level {props.level} in... </span>
                             <span className="leaderboardTime">{user.time} seconds !</span>
                         </div>
 
