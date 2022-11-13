@@ -24,10 +24,7 @@ export default function Level2(props) {
 
     useEffect(() => {
         props.setLevel(false, false, true, false);
-        props.getCharacters();
-
-        getAllPositions();
-
+        
         let timer = window.setInterval(() => {
             if (count.current === 3) {
                 window.clearInterval(timer);
@@ -35,13 +32,17 @@ export default function Level2(props) {
                 setLevelFinished(true);
             }
             userTime.current = userTime.current + 1;
-            console.log(userTime.current);
         }, 1000);
 
         return () => {
             window.clearInterval(timer);
         }
     }, [])
+
+    useEffect(() => {
+        props.getCharacters();
+        getAllPositions();
+    }, [props.currentLevel])
 
     function sendDataToFirebase() {
         if (count === 0) {

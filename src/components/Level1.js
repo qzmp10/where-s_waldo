@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import waldo1 from '../waldo1.jpg'
 import { Button, Character } from './styled-comp'
-import {doc, updateDoc, getDoc,
+import {
+    doc, updateDoc, getDoc,
 } from "firebase/firestore";
 import { db } from '../firebase.config'
 import Pop from './popUp'
@@ -31,10 +32,7 @@ export default function Level1(props) {
 
     useEffect(() => {
         props.setLevel(false, true, false, false);
-        props.getCharacters();
-
-        getAllPositions();
-
+        
         let timer = window.setInterval(() => {
             if (count.current === 3) {
                 window.clearInterval(timer);
@@ -50,8 +48,10 @@ export default function Level1(props) {
     }, [])
 
     useEffect(() => {
+        props.getCharacters();
+        getAllPositions();
+    }, [props.currentLevel])
 
-    }, [])
 
 
     function sendDataToFirebase() {
@@ -133,7 +133,7 @@ export default function Level1(props) {
         const ref = doc(db, 'waldoData', 'level1');
         const refSnap = await getDoc(ref);
         const array = [refSnap.data()['odlaw'], refSnap.data()['waldo'], refSnap.data()['wizard']]
-        console.log(array)
+        console.log('getAllPositions() fired', array)
         setPositionArray(array);
     }
 

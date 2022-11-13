@@ -20,21 +20,25 @@ function App() {
   const [currentLevel, setCurrentLevel] = useState(0);
   const [currentCharacters, setCurrentCharacters] = useState(['Default', 'Default', 'Default']);
 
-
-  useEffect(() => {
-    console.log(currentLevel)
-    whichLevel();
-  }, [])
-
   async function getCharacters() {
-    if (currentLevel !== 0) {
-      const charRef = await doc(db, 'waldoData', `level${currentLevel}`);
-      const charSnap = await getDoc(charRef);
-      console.log(charSnap.data());
-      console.log(charSnap.data()['characters']);
-      const array = charSnap.data()['characters'];
-      setCurrentCharacters(array);
-    } 
+    
+    try {
+      if (currentLevel != 0) {
+        const charRef = await doc(db, 'waldoData', `level${currentLevel}`);
+        const charSnap = await getDoc(charRef);
+        console.log(currentLevel);
+        console.log(charSnap.data());
+        console.log(charSnap.data()['characters']);
+        const array = charSnap.data()['characters'];
+        setCurrentCharacters(array);
+        console.log('getCharacters() fired')
+      } else {
+        console.log('getCHaracters() not executed')
+      } 
+
+    } catch (e) {
+      console.log(e);
+    }
 
   }
 
@@ -47,7 +51,8 @@ function App() {
       '2': state2,
       '3': state3
     })
-    console.log(levelSnap.data());
+    console.log('setLevel() fired', levelSnap.data());
+    whichLevel();
   }
 
   async function whichLevel() {
@@ -62,13 +67,14 @@ function App() {
         }
       }
     }
+    console.log('whichLevel() fired')
   }
 
   return (
     <Router>
       <Nav />
       <Routes>
-        <Route path='/' element={<Home setLevel={setLevel} />}></Route>
+        <Route path='/' element={<Home setLevel={setLevel} whichLevel={whichLevel} />}></Route>
         <Route path='/level1' element={<Level1 currentLevel={currentLevel} characters={currentCharacters}
           setLevel={setLevel} getCharacters={getCharacters} whichLevel={whichLevel} />}></Route>
         <Route path='/level2' element={<Level2 currentLevel={currentLevel} characters={currentCharacters} setLevel={setLevel} getCharacters={getCharacters} />}></Route>
