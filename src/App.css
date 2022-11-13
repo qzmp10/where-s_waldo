@@ -33,13 +33,31 @@ button {
   border-bottom: solid 1.5px;
 }
 
+.dropdownMenu {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: white;
+  background-color: rgb(255, 57, 57);
+  border-radius: .6rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer
+}
+
+
 .homeContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   height: 70%;
-  background-image: linear-gradient(200deg, white, rgb(255, 57, 57));
+  background-image: linear-gradient(200deg, white, rgb(255, 157, 157));
   gap: 4rem;
 }
 
@@ -227,6 +245,18 @@ span {
   top: 81%;
   right: 0px;
   left: 14.5%;
+  bottom: 0px;
+}
+
+.hitSquare1-lvl3 {
+  position: absolute;
+  background: blue;
+  opacity: 0;
+  width: 2rem;
+  height: 2.4rem;
+  top: 28%;
+  right: 0px;
+  left: 83%;
   bottom: 0px;
 }
 

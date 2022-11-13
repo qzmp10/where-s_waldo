@@ -5,11 +5,12 @@ import {
     doc, updateDoc, getDoc,
 } from "firebase/firestore";
 import { db } from '../firebase.config';
-import level2 from '../level2.jpg'
+import level3 from '../level3.jpg'
 import Pop from './popUp';
 import TimePop from './finishLevel';
 
 export default function Level3(props) {
+
     const [popUpState, setPopUpState] = useState(false);
     const [coordinates, setCoordinates] = useState([]);
     const [positionArray, setPositionArray] = useState([]);
@@ -103,7 +104,7 @@ export default function Level3(props) {
                 <div className='levelContainer'>
                     <div className='levelHeader'>
                         <div className='levelAndCharacters'>
-                            <div className='currentLevel'>Waldo's Plaza</div>
+                            <div className='currentLevel'>Waldo's Concert</div>
                             <div className='headerCharacters'>
                                 <Character ref={waldoImg} className='waldo' alt='odlaw'
                                     src='https://www.giantbomb.com/a/uploads/scale_small/0/5973/545186-waldo2.jpg' />
@@ -120,8 +121,8 @@ export default function Level3(props) {
                         sendDataToFirebase();
 
                     }}>
-                        <img src={level2} alt='waldo-wallpaper' />
-                        <div ref={waldoRef} className='hitSquare1-lvl2'></div>
+                        <img src={level3} alt='waldo-wallpaper' />
+                        <div ref={waldoRef} className='hitSquare1-lvl3'></div>
                     </div>
                 </div>
                 {levelFinished === true ? (
@@ -133,7 +134,8 @@ export default function Level3(props) {
             {
                 popUpState === true ? (
                     <Pop characters={props.characters} x={coordinates[0]} y={coordinates[1]}
-                        callbackLvl2={callback} clickPos={clickPos} positionArray={positionArray} />
+                        callbackLvl3={callback} clickPos={clickPos} positionArray={positionArray} 
+                        currentLevel={props.currentLevel}/>
                 ) : (
                     <div></div>
                 )

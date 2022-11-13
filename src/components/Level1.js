@@ -182,7 +182,8 @@ export default function Level1(props) {
             {
                 popUpState === true ? (
                     <Pop characters={props.characters} x={coordinates[0]} y={coordinates[1]}
-                        callback={callback} clickPos={clickPos} positionArray={positionArray} />
+                        callback={callback} clickPos={clickPos} positionArray={positionArray} 
+                        currentLevel={props.currentLevel}/>
                 ) : (
                     <div></div>
                 )
