@@ -12,7 +12,7 @@ Figuring out how to set up Firebase, how to use the functions associated with Fi
 
 ## What I could've done better
 - Testing. I forgot to use Jest for TTD during this project which is definitely a habit I should not pick up.
-- Organizing my project before starting it. My projects tend to become pretty disorganized as they go because of a lack of a 'plan. A whiteboard would probably help.
+- Organizing my project before starting it. My projects tend to become pretty disorganized as they go because of a lack of a plan. A whiteboard would probably help.
 
 ## Used
 - React
