@@ -109,7 +109,7 @@ export default function Level3(props) {
                                     src='https://www.giantbomb.com/a/uploads/scale_small/0/5973/545186-waldo2.jpg' />
                             </div>
                         </div>
-                        <Link to='/'>
+                        <Link to='/home'>
                             <Button>
                            Home >
                             </Button>

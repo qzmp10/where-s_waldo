@@ -62,7 +62,7 @@ function App() {
     <Router>
       <Nav />
       <Routes>
-        <Route path='/' element={<Home setLevel={setLevel} whichLevel={whichLevel} />}></Route>
+        <Route path='/home' element={<Home setLevel={setLevel} whichLevel={whichLevel} />}></Route>
 
         <Route path='/level1' element={<Level1 currentLevel={currentLevel} characters={currentCharacters}
           setLevel={setLevel} getCharacters={getCharacters} whichLevel={whichLevel} />}></Route>
