@@ -24,15 +24,9 @@ function App() {
       if (currentLevel != 0) {
         const charRef = await doc(db, 'waldoData', `level${currentLevel}`);
         const charSnap = await getDoc(charRef);
-        console.log(charSnap.data());
-        console.log(charSnap.data()['characters']);
         const array = charSnap.data()['characters'];
         setCurrentCharacters(array);
-        console.log('getCharacters() fired', 'currentLevel', currentLevel)
-      } else {
-        console.log('getCHaracters() not executed')
-      }
-
+      } 
     } catch (e) {
       console.log(e);
     }
@@ -41,14 +35,12 @@ function App() {
 
   async function setLevel(state0, state1, state2, state3) {
     const levelRef = await doc(db, 'waldoData', 'currentLevel');
-    const levelSnap = await getDoc(levelRef);
     await updateDoc(levelRef, {
       '0': state0,
       '1': state1,
       '2': state2,
       '3': state3
     })
-    console.log('setLevel() fired', levelSnap.data());
     whichLevel();
   }
 
@@ -64,7 +56,6 @@ function App() {
         }
       }
     }
-    console.log('whichLevel() fired')
   }
 
   return (

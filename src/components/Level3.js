@@ -24,7 +24,6 @@ export default function Level3(props) {
     const sent = useRef(false);
 
     useEffect(() => {
-        console.log(waldoRef.current.offsetLeft)
         props.setLevel(false, false, false, true);
         let timer = window.setInterval(() => {
             if (count.current === 1) {

@@ -1,12 +1,5 @@
 import { Button } from "./styled-comp"
 import { useState, useRef } from 'react'
-import {
-    collection, getDocs, doc, setDoc, Timestamp, updateDoc, serverTimestamp,
-    arrayUnion, arrayRemove, increment, deleteDoc, deleteField,
-    getDoc, getDocFromCache, where, query, onSnapshot, orderBy, limit, addDoc
-} from "firebase/firestore";
-
-import { db } from '../firebase.config'
 import Levelleaderboard from "./level-leaderboard";
 import { useEffect } from "react";
 
@@ -15,7 +8,6 @@ export default function Leaderboard(props) {
     const [displayedLevel, setDisplayedLevel] = useState(1);
 
     useEffect(() => {
-        console.log(displayedLevel)
         activeLevel();
     }, [displayedLevel])
 
@@ -55,7 +47,6 @@ export default function Leaderboard(props) {
 
     const switchLevel = (e) => {
         changeLevel(Number(e.target.dataset.id));
-        console.log(displayedLevel);
     }
 
     return (
