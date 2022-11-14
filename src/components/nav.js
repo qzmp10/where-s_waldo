@@ -11,7 +11,7 @@ export default function Nav(props) {
                 <img className='waldoImg' alt='waldo' src='https://triviahappy.com/wp-content/uploads/2014/10/Untitled-1.png' />
                 <div className='isWaldo'>Waldo?</div>
             </div>
-            <Link to='/home'>
+            <Link to='/where-s_waldo'>
                 <div ref={dropdown} className='dropdownMenu'>
                     Home
                 </div>
